@@ -6,99 +6,119 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login Form</title>
     <style>
+        *{
+            font-family: monospace;
+            font-size:18px;
+        }
         body {
             margin: 0;
             padding: 0;
-            background-color: #ae8a8a3c;
-            font-family: 'Arial';
+            background-color: #f0f0f0; /* Changed background color */
+            font-family: 'Arial', sans-serif;
         }
 
         .login {
-            width: 382px;
-            overflow: hidden;
-            margin: auto;
-            margin: 20 0 0 450px;
-            padding: 80px;
-            background: #8e9b98;
+            width: 420px;
+            margin: 50px auto 100px auto; /* Center the form */
+            padding: 40px;
+            background: #ffffff; /* Changed background color */
             border-radius: 15px;
-
+            box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1); /* Added box shadow for a fancier look */
         }
 
-        h2 {
+        h1 {
+            font-size: 25px;
+            margin-top:70px;
             text-align: center;
             color: #593535;
-            padding: 10px;
-            
         }
 
         label {
-            color: #ffffff;
-            font-size: 17px;
+            color: #555;
+            font-size: 16px;
+            display: block;
+            margin-bottom: 8px;
         }
 
-        #Uname {
-            width: 300px;
-            height: 30px;
-            border: none;
-            border-radius: 3px;
-            padding-left: 8px;
-        }
-
-        #Pass {
-            width: 300px;
-            height: 30px;
-            border: none;
-            border-radius: 3px;
-            padding-left: 8px;
-
+        input[type="text"],
+        input[type="password"] {
+            width: calc(100% - 16px);
+            height: 40px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 0 8px;
+            margin-bottom: 20px;
         }
 
         #log {
-            
-            margin-left: 110px;
-            width: 100px;
-            height: 35px;
+            margin-top:10px;
+            width: 100%;
+            height: 40px;
             border: none;
-            border-radius: 15px;
+            border-radius: 5px;
             padding: 7px;
-            color: blue;
-            
+            color: #fff;
+            background-color: #007bff; /* Changed button color */
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
 
+        #log:hover {
+            background-color: #0056b3; /* Darker color on hover */
         }
 
         span {
-            color: white;
-            font-size: 17px;
+            color: #555;
+            font-size: 16px;
         }
 
         a {
-            float: right;
-            background-color: rgb(255, 255, 255);
+            color: #007bff; /* Changed link color */
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .signup-btn {
+            width: 100%;
+            height: 40px;
+            border: none;
+            border-radius: 5px;
+            padding: 7px;
+            color: #fff;
+            background-color: #28a745; /* Green color for sign up button */
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .signup-btn:hover {
+            background-color: #218838; /* Darker color on hover */
         }
     </style>
 </head>
 
 <body>
-    <h2>Login Page</h2><br>
+    <h1>Login Page</h1>
     <div class="login">
         <form id="login" method="get" action="login.php">
-            <label><b>User Name
-                </b>
-            </label>
+            <label for="Uname"><b>User Name</b></label>
             <input type="text" name="Uname" id="Uname" placeholder="Username">
-            <br><br>
-            <label><b>Password
-                </b>
-            </label>
-            <input type="Password" name="Pass" id="Pass" placeholder="Password">
-            <br><br>
-            <input type="button" name="log" id="log" value="Log In Here">
-            <br><br>
+
+            <label for="Pass"><b>Password</b></label>
+            <input type="password" name="Pass" id="Pass" placeholder="Password">
+
             <input type="checkbox" id="check">
             <span>Remember me</span>
+
+            <input type="button" name="log" id="log" value="Login">
+            
+
             <br><br>
-            Forgot <a href="#">Password</a>
-        </form>
+            <a href="#">Forgot Password</a>
+        </form><br>
+        <button class="signup-btn" onclick="location.href='#';">Don't have an account? Sign Up</button>
     </div>
 </body>
 
