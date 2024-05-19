@@ -1,9 +1,86 @@
+<?php
+
+session_start();
+
+include 'mysql.php';
+include 'commons.php';
+
+if(isset($_COOKIE["userid"]) || isset($_SESSION["userid"])){
+
+    alert_func("You Are Already Logged In , Login Form Is Not Accessible");
+
+    redirect_func("index.php");
+}
+
+if(isset($_POST["log"])){
+    
+    
+
+    $mysqlobj = new mysql();
+
+    $conn = mysqli_connect($mysqlobj->host,$mysqlobj->dbusername,$mysqlobj->dbpassword,$mysqlobj->dbname);
+
+        if ($conn) {
+
+            $username_or_email = trim($_POST["Uname"]);
+      
+            $password = trim($_POST["Pass"]);
+
+            $user_exists = mysqli_query($conn,"SELECT * FROM $mysqlobj->userstable WHERE user_id = '$username_or_email' OR email = '$username_or_email';");
+
+            if (mysqli_num_rows($user_exists) != 0){
+
+                $row = mysqli_fetch_assoc($user_exists);
+
+                if ($row["password"] == $password){
+                    
+
+                    if($_POST["remember"]){
+
+                        $userid = $row["user_id"];
+    
+                        setcookie("userid",$userid,time() + 60 * 60 * 24 * 30);
+                    }
+
+                    else{
+                        
+                        $_SESSION["userid"] = $row["user_id"];
+
+                    }
+                    
+                    alert_func("Login Successfully");
+
+                    redirect_func("index.php");
+                }
+
+                else{
+
+                    alert_func("Password Is Invalid , Try Again");
+                }
+                
+            }
+            else{
+
+                alert_func("User Not Exists");
+            }
+        }
+
+        else{
+
+            alert_func("Problem Occur While Creating A Connection With Database");
+        }
+
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login Form</title>
+    <link rel="icon" type="image/png" href="ICONS/contact.png">
     <style>
         * {
             font-family: Arial, sans-serif;
@@ -97,7 +174,7 @@
             <label for="Pass"><b>Password</b></label>
             <input type="password" name="Pass" id="Pass" placeholder="Password" required>
 
-            <input type="checkbox" id="check">
+            <input type="checkbox" name="remember" id="check">
             <span>Remember me</span>
 
             <input type="submit" name="log" id="log" value="Login">
