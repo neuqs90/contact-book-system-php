@@ -49,7 +49,7 @@
         <h1>Welcome to the Contact Book</h1>
         <p>Please login or register to continue.</p>
         <a href="login.php">Login</a>
-        <a href="register.php">Register</a>
+        <a href="signup.php">Register</a>
     </div>
 </body>
 </html>
