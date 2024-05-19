@@ -1,9 +1,54 @@
 <?php
+
+
 if(isset($_POST["sign"])){
-    $username = trim($_POST["Uname"]);
-    $password = trim($_POST["Pass"]);
-    $email = trim($_POST["email"]);
+    
+    include 'mysql.php';
+    include 'commons.php';
+
+    $mysqlobj = new mysql();
+
+    $conn = mysqli_connect($mysqlobj->host,$mysqlobj->dbusername,$mysqlobj->dbpassword,$mysqlobj->dbname);
+
+        if ($conn) {
+
+            $username = trim($_POST["Uname"]);
+            $email = trim($_POST["email"]);
+            $password = trim($_POST["Pass"]);
+
+            $get_exits_username_email = mysqli_query($conn,"SELECT * FROM $mysqlobj->userstable WHERE user_id = '$username' OR email = '$email'");
+            
+            if (mysqli_num_rows($get_exits_username_email) == 0){
+
+                $insert_userdata = mysqli_query($conn,"INSERT INTO $mysqlobj->userstable VALUES ('$username','$email','$password');");
+
+                if (mysqli_affected_rows($conn) > 0){
+
+                    alert_func("Sign Up Successfully");
+
+                    redirect_func("index.php");
+                }
+
+                else{
+
+                    alert_func("OOPS ! Problem Occur While Sign Up ,Try Again Later.");
+                }
+
+            }
+
+            else{
+
+                alert_func("Username Or Email Already Exists , Please Choose Another.");
+
+            }
+        }   
+        
+        else{
+
+            alert_func("Looks Like There Is A Problem While Connecting To Database.");
+        }
 }
+
 ?>
 
 <!DOCTYPE html>
