@@ -1,0 +1,5 @@
+# Note Just Copy Paste QUERIES Step By Step
+
+Step 1. Create Database
+
+    QUERY : create database contactbooksys;
